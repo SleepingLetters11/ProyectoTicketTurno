@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{12345678-1234-1234-1234-123456789012}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ProyectoTicketTurno</RootNamespace>
+    <AssemblyName>ProyectoTicketTurno</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.9.0.0, Culture=neutral, PublicKeyToken=24c2f752a8c2a984, processorArchitecture=MSIL">
+      <HintPath>packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console, Version=3.1.1.0, Culture=neutral, PublicKeyToken=24c2f752a8c2a984, processorArchitecture=MSIL">
+      <HintPath>packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=4.1.0.0, Culture=neutral, PublicKeyToken=24c2f752a8c2a984, processorArchitecture=MSIL">
+      <HintPath>packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot, Version=2.1.0.0, Culture=neutral, PublicKeyToken=645ebae33347bac7, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.Core.2.1.0\lib\net45\OxyPlot.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot.WindowsForms, Version=2.1.0.0, Culture=neutral, PublicKeyToken=645ebae33347bac7, processorArchitecture=MSIL">
+      <HintPath>packages\OxyPlot.WindowsForms.2.1.0\lib\net45\OxyPlot.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="iTextSharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Data\Context\AplicacionDbContext.cs" />
+    <Compile Include="Data\Repositories\IRepository.cs" />
+    <Compile Include="Data\Repositories\BaseRepository.cs" />
+    <Compile Include="Data\Repositories\IEstudianteRepository.cs" />
+    <Compile Include="Data\Repositories\EstudianteRepository.cs" />
+    <Compile Include="Data\Repositories\ISolicitudTurnoRepository.cs" />
+    <Compile Include="Data\Repositories\SolicitudTurnoRepository.cs" />
+    <Compile Include="Business\Models\Estudiante.cs" />
+    <Compile Include="Business\Models\SolicitudTurno.cs" />
+    <Compile Include="Business\Models\Municipio.cs" />
+    <Compile Include="Business\Models\Estado.cs" />
+    <Compile Include="Business\Services\ValidacionCURPService.cs" />
+    <Compile Include="Business\Services\EstudianteService.cs" />
+    <Compile Include="Business\Services\TurnoService.cs" />
+    <Compile Include="Business\Services\SolicitudTurnoService.cs" />
+    <Compile Include="Business\Services\DashboardService.cs" />
+    <Compile Include="Business\Services\ReporteService.cs" />
+    <Compile Include="Presentation\FormLogin.cs" />
+    <Compile Include="Presentation\FormPrincipal.cs" />
+    <Compile Include="Presentation\FormSolicitudTurno.cs" />
+    <Compile Include="Presentation\FormAdministrador.cs" />
+    <Compile Include="Presentation\FormDashboard.cs" />
+    <Compile Include="Presentation\FormDashboardAvanzado.cs" />
+    <Compile Include="Presentation\FormConsultaEstudiante.cs" />
+    <Compile Include="Infrastructure\Reports\IReporte.cs" />
+    <Compile Include="Infrastructure\Reports\ReporteComprobante.cs" />
+    <Compile Include="Infrastructure\Reports\ReporteFactory.cs" />
+    <Compile Include="Infrastructure\Utilities\FormatoCURPHelper.cs" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

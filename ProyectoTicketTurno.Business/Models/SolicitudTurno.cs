@@ -4,24 +4,19 @@ namespace ProyectoTicketTurno.Business.Models
 {
     public class SolicitudTurno
     {
-        public int NumeroTurno { get; set; }
-        public string CURP { get; set; }
-        public int IdMunicipio { get; set; }
+        public int NumeroTurno { get; set; } // PK
+        public string CURP { get; set; } // FK
+        public string Municipio { get; set; }
         public DateTime FechaSolicitud { get; set; }
         public string Asunto { get; set; }
-        public string PersonaTramite { get; set; }
+        public string PersonaTramitera { get; set; }
         public string Parentesco { get; set; }
-        public string Estatus { get; set; }
-        public DateTime? FechaResolucion { get; set; }
+        public EstatusEnum Estatus { get; set; } // Pendiente/Resuelto
+    }
 
-        // Propiedades de Navegación
-        public virtual Estudiante Estudiante { get; set; }
-        public virtual Municipio Municipio { get; set; }
-
-        public SolicitudTurno()
-        {
-            FechaSolicitud = DateTime.Now;
-            Estatus = "Pendiente";
-        }
+    public enum EstatusEnum
+    {
+        Pendiente = 0,
+        Resuelto = 1
     }
 }
