@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
 using ProyectoTicketTurno.Business.Models;
 using ProyectoTicketTurno.Data.Context;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ProyectoTicketTurno.Data.Repositories
 {
-    public class SolicitudTurnoRepository : Repository<SolicitudTurno>, ISolicitudTurnoRepository
+    public class SolicitudTurnoRepository : BaseRepository<SolicitudTurno>, ISolicitudTurnoRepository
     {
         public SolicitudTurnoRepository(AplicacionDbContext context) : base(context)
         {
@@ -13,22 +13,22 @@ namespace ProyectoTicketTurno.Data.Repositories
 
         public SolicitudTurno ObtenerPorNumeroTurno(int numeroTurno)
         {
-            return _dbSet.AsNoTracking()
-                .FirstOrDefault(s => s.NumeroTurno == numeroTurno);
+            return ObtenerPorId(numeroTurno);
         }
 
-        public IEnumerable<SolicitudTurno> ObtenerPorMunicipio(int idMunicipio)
+        public IEnumerable<SolicitudTurno> ObtenerPorMunicipio(string municipio)
         {
-            return _dbSet.AsNoTracking()
-                .Where(s => s.IdMunicipio == idMunicipio)
-                .ToList();
+            return ObtenerPor(s => s.Municipio == municipio);
         }
 
-        public IEnumerable<SolicitudTurno> ObtenerPorEstatus(string estatus)
+        public IEnumerable<SolicitudTurno> ObtenerPorCURP(string curp)
         {
-            return _dbSet.AsNoTracking()
-                .Where(s => s.Estatus == estatus)
-                .ToList();
+            return ObtenerPor(s => s.CURP == curp);
+        }
+
+        public IEnumerable<SolicitudTurno> ObtenerPorEstatus(EstatusEnum estatus)
+        {
+            return ObtenerPor(s => s.Estatus == estatus);
         }
     }
 }

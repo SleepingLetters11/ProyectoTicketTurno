@@ -5,27 +5,28 @@ namespace ProyectoTicketTurno.Data.Context
 {
     public class AplicacionDbContext : DbContext
     {
-        public AplicacionDbContext() : base("name=AplicacionDbContext")
+        public AplicacionDbContext() : base("name=ProyectoTicketTurnoConnection")
         {
+            // Desabilitar lazy loading para mejor desempeño
             this.Configuration.LazyLoadingEnabled = false;
-            this.Configuration.ProxyCreationEnabled = false;
+
+            // Usar proxy validation para validaciones de EF
+            this.Configuration.ProxyCreationEnabled = true;
+
+            // Usar AutoDetectChangesEnabled con cautela
+            this.Configuration.AutoDetectChangesEnabled = true;
         }
 
         public DbSet<Estudiante> Estudiantes { get; set; }
+        public DbSet<SolicitudTurno> SolicitudesTurno { get; set; }
         public DbSet<Municipio> Municipios { get; set; }
         public DbSet<Estado> Estados { get; set; }
-        public DbSet<NivelEducativo> NivelesEducativos { get; set; }
-        public DbSet<SolicitudTurno> SolicitudesTurno { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
-            // Configuración de Estudiante
+            // Configurar Estudiante
             modelBuilder.Entity<Estudiante>()
-                .HasKey(e => e.CURP);
-
-            modelBuilder.Entity<Estudiante>()
+                .HasKey(e => e.CURP)
                 .Property(e => e.CURP)
                 .HasMaxLength(18)
                 .IsRequired();
@@ -47,18 +48,53 @@ namespace ProyectoTicketTurno.Data.Context
 
             modelBuilder.Entity<Estudiante>()
                 .Property(e => e.Sexo)
-                .HasMaxLength(1)
                 .IsRequired();
+
+            modelBuilder.Entity<Estudiante>()
+                .Property(e => e.EstadoNacimiento)
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<Estudiante>()
+                .Property(e => e.MunicipioEstudio)
+                .HasMaxLength(100);
 
             modelBuilder.Entity<Estudiante>()
                 .Property(e => e.TelefonoContacto)
                 .HasMaxLength(20);
 
-            // Índices para consultas frecuentes
             modelBuilder.Entity<Estudiante>()
-                .HasIndex(e => e.Nombre);
+                .Property(e => e.NivelEducativo)
+                .HasMaxLength(50);
 
-            // Configuración de Municipio
+            // Configurar SolicitudTurno
+            modelBuilder.Entity<SolicitudTurno>()
+                .HasKey(s => s.NumeroTurno)
+                .Property(s => s.NumeroTurno)
+                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<SolicitudTurno>()
+                .Property(s => s.CURP)
+                .HasMaxLength(18)
+                .IsRequired();
+
+            modelBuilder.Entity<SolicitudTurno>()
+                .Property(s => s.Municipio)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            modelBuilder.Entity<SolicitudTurno>()
+                .Property(s => s.Asunto)
+                .HasMaxLength(500);
+
+            modelBuilder.Entity<SolicitudTurno>()
+                .Property(s => s.PersonaTramitera)
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<SolicitudTurno>()
+                .Property(s => s.Parentesco)
+                .HasMaxLength(50);
+
+            // Configurar Municipio
             modelBuilder.Entity<Municipio>()
                 .HasKey(m => m.IdMunicipio);
 
@@ -67,95 +103,20 @@ namespace ProyectoTicketTurno.Data.Context
                 .HasMaxLength(100)
                 .IsRequired();
 
-            // Configuración de Estado
+            // Configurar Estado
             modelBuilder.Entity<Estado>()
-                .HasKey(e => e.IdEstado);
+                .HasKey(e => e.Clave);
 
             modelBuilder.Entity<Estado>()
-                .Property(e => e.NombreEstado)
+                .Property(e => e.Clave)
+                .HasMaxLength(10);
+
+            modelBuilder.Entity<Estado>()
+                .Property(e => e.Nombre)
                 .HasMaxLength(100)
                 .IsRequired();
 
-            modelBuilder.Entity<Estado>()
-                .Property(e => e.Abreviatura)
-                .HasMaxLength(2)
-                .IsRequired();
-
-            // Configuración de NivelEducativo
-            modelBuilder.Entity<NivelEducativo>()
-                .HasKey(n => n.IdNivel);
-
-            modelBuilder.Entity<NivelEducativo>()
-                .Property(n => n.Nombre)
-                .HasMaxLength(100)
-                .IsRequired();
-
-            // Configuración de SolicitudTurno
-            modelBuilder.Entity<SolicitudTurno>()
-                .HasKey(s => s.NumeroTurno);
-
-            modelBuilder.Entity<SolicitudTurno>()
-                .Property(s => s.CURP)
-                .HasMaxLength(18)
-                .IsRequired();
-
-            modelBuilder.Entity<SolicitudTurno>()
-                .Property(s => s.Asunto)
-                .HasMaxLength(500)
-                .IsRequired();
-
-            modelBuilder.Entity<SolicitudTurno>()
-                .Property(s => s.PersonaTramite)
-                .HasMaxLength(150)
-                .IsRequired();
-
-            modelBuilder.Entity<SolicitudTurno>()
-                .Property(s => s.Parentesco)
-                .HasMaxLength(50)
-                .IsRequired();
-
-            modelBuilder.Entity<SolicitudTurno>()
-                .Property(s => s.Estatus)
-                .HasMaxLength(20)
-                .IsRequired();
-
-            // Índices para consultas frecuentes
-            modelBuilder.Entity<SolicitudTurno>()
-                .HasIndex(s => s.CURP);
-
-            modelBuilder.Entity<SolicitudTurno>()
-                .HasIndex(s => s.IdMunicipio);
-
-            // Relaciones
-            modelBuilder.Entity<Estudiante>()
-                .HasRequired(e => e.EstadoNacimiento)
-                .WithMany()
-                .HasForeignKey(e => e.IdEstadoNacimiento)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Estudiante>()
-                .HasRequired(e => e.MunicipioEstudio)
-                .WithMany()
-                .HasForeignKey(e => e.IdMunicipioEstudio)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Estudiante>()
-                .HasRequired(e => e.NivelEducativo)
-                .WithMany()
-                .HasForeignKey(e => e.IdNivelEducativo)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SolicitudTurno>()
-                .HasRequired(s => s.Estudiante)
-                .WithMany()
-                .HasForeignKey(s => s.CURP)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SolicitudTurno>()
-                .HasRequired(s => s.Municipio)
-                .WithMany()
-                .HasForeignKey(s => s.IdMunicipio)
-                .WillCascadeOnDelete(false);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
