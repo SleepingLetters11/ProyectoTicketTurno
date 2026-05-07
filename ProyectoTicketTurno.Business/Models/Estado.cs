@@ -2,8 +2,7 @@ namespace ProyectoTicketTurno.Business.Models
 {
     public class Estado
     {
-        public int IdEstado { get; set; }
-        public string NombreEstado { get; set; }
-        public string Abreviatura { get; set; }
+        public string Clave { get; set; } // PK (Abreviatura RENAPO)
+        public string Nombre { get; set; }
     }
 }

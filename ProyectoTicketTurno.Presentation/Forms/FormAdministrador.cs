@@ -34,7 +34,11 @@ namespace ProyectoTicketTurno.Presentation
 
         private void ConfigurarFormulario()
         {
+<<<<<<< HEAD
             this.Text = "Panel Administradors";
+=======
+            this.Text = "Panel Administrador";
+>>>>>>> 5f19ed9ab7e7f99b306b1760875ec83b456feab6
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterParent;

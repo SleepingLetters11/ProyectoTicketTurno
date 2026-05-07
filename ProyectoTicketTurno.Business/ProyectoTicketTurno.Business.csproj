@@ -49,9 +49,16 @@
     <Compile Include="Models\NivelEducativo.cs" />
     <Compile Include="Models\SolicitudTurno.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DashboardService.cs" />
+    <Compile Include="Services\EstudianteService.cs" />
+    <Compile Include="Services\ReporteService.cs" />
+    <Compile Include="Services\SolicitudTurnoService.cs" />
+    <Compile Include="Services\TurnoService.cs" />
+    <Compile Include="Services\ValidacionCURPService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
