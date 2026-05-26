@@ -160,8 +160,7 @@ ProyectoTicketTurno/
 │   └── Ticket_Turno_tablas.sql ← Script SQL inicial
 │
 ├── ProyectoTicketTurno.sln ← Solución
-├── README.md ← Resumen rápido
-└── DOCUMENTACION_COMPLETA.md ← Este archivo
+├── README.md ← Resumen rápido← Este archivo
 ```
 
 ---
