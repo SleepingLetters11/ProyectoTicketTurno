@@ -50,7 +50,13 @@
 | **Testing** | NUnit / xUnit |
 
 ### Stack Tecnológico Completo:
-Frontend (Presentación) ↓ Business Logic (Servicios) ↓ Data Access (Repositories) ↓ Database (SQL Server)
+Frontend (Presentación) 
+↓ 
+Business Logic (Servicios) 
+↓
+Data Access (Repositories) 
+↓
+Database (SQL Server)
 
 ---
 
